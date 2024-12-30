@@ -3,45 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Static Website</title>
+    <title>Text and Audio from Server</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
+            margin-top: 50px;
         }
-        h1 {
-            color: #333;
+        #textContent {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            display: inline-block;
+            max-width: 300px;
+            text-align: left;
         }
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: not-allowed; /* Button does nothing for now */
-        }
-        .display-space {
-            margin: 20px auto;
-            padding: 20px;
-            width: 80%;
-            height: 200px;
-            background-color: #fff;
-            border: 2px dashed #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #777;
+        audio {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Server Working</h1>
-    <button>Heading Button</button>
-    <button>Start Button</button>
-    <div class="display-space">
-        Display Space
-    </div>
+    <h1>Text and Audio from Server</h1>
+    
+    <h2>Text File Content:</h2>
+    <div id="textContent">Loading text...</div>
+
+    <h2>Audio File:</h2>
+    <audio controls>
+        <source src="audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Fetch the text file from the server
+        fetch('text.txt')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('textContent').innerText = data;
+            })
+            .catch(error => {
+                console.error('Error fetching text file:', error);
+                document.getElementById('textContent').innerText = "Error loading text.";
+            });
+    </script>
 </body>
 </html>
